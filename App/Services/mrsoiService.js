@@ -8,15 +8,7 @@ const isWithin = curryN(3, (min, max, value) => {
 })
 const in200s = isWithin(200, 299)
 
-/**
- * This is an example of a service that connects to a 3rd party API.
- *
- * Feel free to remove this example from your application.
- */
 const homeApiClient = axios.create({
-  /**
-   * Import the config from the App/Config/index.js file
-   */
   baseURL: Config.API_URL,
   headers: {
     Accept: 'application/json',
@@ -34,6 +26,25 @@ function fetchHome() {
   })
 }
 
-export const homeService = {
+const archivesApiClient = axios.create({
+  baseURL: Config.API_URL + 'archives',
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+  timeout: 3000,
+})
+
+function fetchArchives() {
+  return archivesApiClient.get().then((response) => {
+    if (in200s(response.status)) {
+      return response.data
+    }
+    return null
+  })
+}
+
+export const mrsoiService = {
   fetchHome,
+  fetchArchives,
 }

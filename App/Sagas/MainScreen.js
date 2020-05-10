@@ -1,6 +1,6 @@
 import { put, call } from 'redux-saga/effects'
 import MainActions from 'App/Stores/MainScreen/Actions'
-import { homeService } from 'App/Services/HomeService'
+import { mrsoiService } from 'App/Services/mrsoiService'
 
 /**
  * A saga can contain multiple functions.
@@ -14,7 +14,7 @@ export function* fetchHome() {
   yield put(MainActions.fetchHomeLoading())
 
   // Fetch home informations from an API
-  const home = yield call(homeService.fetchHome)
+  const home = yield call(mrsoiService.fetchHome)
   console.log('function*fetchHome -> home', home)
   if (home) {
     yield put(MainActions.fetchHomeSuccess(home))
